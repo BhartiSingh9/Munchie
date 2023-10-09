@@ -1,0 +1,16 @@
+<div class="footer-container" ng-controller="FooterController">
+    <div class="footer-content">
+        <div class="points" ng-repeat="category in categories">
+            {{ category.name }}
+            <ul class="footer-ul">
+                <li class="footer-li" ng-repeat="item in category.items">
+                    <a href="#">{{ item }}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="points">
+            <img ng-src="{{ imageUrls[0] }}" height="54" />
+            <img ng-src="{{ imageUrls[1] }}" height="54" />
+        </div>
+    </div>
+</div>

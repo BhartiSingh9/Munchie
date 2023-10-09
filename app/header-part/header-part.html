@@ -1,0 +1,33 @@
+
+
+<header class="navbar-container" ng-controller="HeaderController">
+    <div class="global-nav">
+        <div class="nav">
+            <div class="left">
+                <!-- Add the Swiggy icon as an img or inline SVG -->
+                <img src="https://media-cdn.grubhub.com/image/upload/d_search:browse-images:default.jpg/w_300,q_100,fl_lossy,dpr_2.0,c_fit,f_auto,h_300/dyzxmwqv2imqqrtl16wt"height="60px" width="60px" alt="Munchiesss Icon" class="munchies-icon">
+                <div class="location-div">
+                    {{ selectedLocation.label }}
+                </div>
+            </div>
+            <div class="right">
+                <ul class="items">
+                    
+                        <div class="nav-item">
+                            <div class="search-bar" ng-class="{ 'expanded': isSearchExpanded }">
+                                <input type="text" ng-model="searchQuery" ng-click="expandSearch()" ng-blur="collapseSearch()" />
+                                <button ng-click="expandSearch()"><i class="fa-solid fa-search"></i></button>
+                            </div>
+                            <div class="user-menu">
+                                
+                                <span>Welcome</span>
+                            </div>
+                            </a>
+                        </div>
+               
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
