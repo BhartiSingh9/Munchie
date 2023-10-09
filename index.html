@@ -8,7 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
 
     <script src="./app/app.js"></script>
-<script src="app/routeConfig.js"></script>
+<script src="routeConfig.js"></script>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <!-- Include CSS and JavaScript dependencies as needed -->
     <link rel="stylesheet" type="text/css" href="./assests/styles/styles.css">
@@ -20,13 +20,13 @@
     <script src="index.js"></script>
 </head>
 <body ng-controller="indexController">
-    <base href="/">
+    <!-- <base href="/login"> -->
    
     <my-header></my-header>
+<div id="main" ng-view></div>
 
-
-
-    <!-- <div class="login-container" ng-controller="LoginController">
+<!-- 
+    <div class="login-container" ng-controller="LoginController">
         <h2>Login</h2>
         <form ng-submit="loginUser(user)">
             <label for="username">Username:</label>

@@ -4,6 +4,14 @@ angular.module('myApp').controller('indexController', ['$scope','$location', fun
         username: '',
         password: ''
     };
-    $location.path('/login');
+
+
+    $scope.init=function(){
+        $location.path('/login');
+
+    }
+    
+
+    $scope.init();
     
 }]);

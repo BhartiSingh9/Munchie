@@ -4,17 +4,17 @@ angular.module('myApp')
 
         $routeProvider
             .when('/login', {
-                templateUrl: '/views/login.html',
+                templateUrl: 'views/login.html',
                 controller: 'LoginController' // Use the name of your login controller
             })
             .when('/main', {
-                templateUrl: 'main.html',
+                templateUrl: 'views/main.html',
                 controller: 'RestaurantController' // Use the name of your restaurant controller
             })
             .when('/',{
-                templateUrl:'./index.html',
+                templateUrl:'index.html',
             })
-            .otherwise({ redirectTo: '/login' });
+            .otherwise({ redirectTo: '/main' });
             $locationProvider.html5Mode({
                 enabled: true,
                 requireBase: true,
