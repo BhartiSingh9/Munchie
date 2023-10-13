@@ -7,9 +7,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
 
-    <script src="./app/app.js"></script>
-<script src="routeConfig.js"></script>
+    <script src="app.js"></script>
+<!-- <script src="routeConfig.js"></script> -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
     <!-- Include CSS and JavaScript dependencies as needed -->
     <link rel="stylesheet" type="text/css" href="./assests/styles/styles.css">
     <script src="./app/footer-part/footerController.js"></script>
@@ -17,27 +19,22 @@
     <script src="./app/header-part/headerController.js"></script>
     <script src="./app/controllers/loginController.js"></script>
     <script src="./app/header-part/headerDirective.js"></script>
+    <srcipt src="./app/services/restaurantService.js"></srcipt>
+    <script src="./app/controllers/restaurantController.js"></script>
+    <script src="./app/services/restaurantDetailsService.js"></script>
+    <script src="./app/controllers/restaurantDetailsController.js"></script>
+    <script src="./app/services/authService.js"></script>
+    <script src="./app/services/cartService.js"></script>
+    <script src="./app/controllers/adminController.js"></script>
+    <script src="./app/services/adminService.js"></script> 
     <script src="index.js"></script>
 </head>
-<body ng-controller="indexController">
-    <!-- <base href="/login"> -->
+<body>
+    <base href="/">
    
     <my-header></my-header>
 <div id="main" ng-view></div>
 
-<!-- 
-    <div class="login-container" ng-controller="LoginController">
-        <h2>Login</h2>
-        <form ng-submit="loginUser(user)">
-            <label for="username">Username:</label>
-            <input type="text" id="username" ng-model="user.username" required>
-            <br>
-            <label for="password">Password:</label>
-            <input type="password" id="password" ng-model="user.password" required>
-            <br>
-            <button type="submit">Log In</button>
-        </form>
-    </div> -->
 
     
 <my-footer></my-footer>

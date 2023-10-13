@@ -1,16 +1,16 @@
-angular.module('myApp').controller('LoginController', ['$scope','$location', function($scope, $location) {
 
+angular.module('myApp').controller('LoginController', ['$scope', '$location', 'AuthService', function ($scope, $location, AuthService) {
     $scope.user = {
-        username: '',
+        email: '',
         password: ''
     };
 
     $scope.loginUser = function(user) {
-        // Implement your user authentication logic here
         if (user.username === 'demo' && user.password === 'password') {
-            // Redirect to the main page after successful login
-            // window.location.href = '/main';
             $location.path('/main');
+        }
+        else if (user.username === 'admin' && user.password === 'adminpassword') { 
+            $location.path('/admin');
         } else {
             alert('Login failed. Please check your credentials.');
             

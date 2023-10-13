@@ -20,5 +20,20 @@ public class DishesServiceImpl implements DishesService {
         return dishesRepository.getAllDishes();
     }
     
+    public List<Dishes> getDishesByRestaurantId(int restaurantId) {
+        return dishesRepository.getDishesByRestaurantId(restaurantId);
+    }
+
+    @Override
+    public void addDish(Dishes dish) {
+        dishesRepository.addDish(dish);
+    }
+
+    @Override
+    public void removeDish(int dishId) {
+        dishesRepository.removeDish(dishId);
+       
+    }
+    
 }
  

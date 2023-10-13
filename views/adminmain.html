@@ -1,0 +1,193 @@
+<div ng-app="myApp" ng-controller="AdminController">
+
+  <h1>Admin Panel</h1>
+  <button ng-click="toggleTable('viewRestaurants')">View Restaurants</button>
+  <button ng-click="toggleTable('viewDishes')">View Dishes</button>
+  <button ng-click="toggleTable('viewOrders')">View Orders</button>
+  <table ng-show="showTable === 'viewRestaurants'">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>Open Time</th>
+        <th>Close Time</th>
+        <th>Cuisine Type</th>
+        <th>Description</th>
+        <th>Is Pure Veg</th>
+        <th>License ID</th>
+        <th>Phone Number</th>
+        <th>Ratings</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="restaurant in restaurants">
+        <td>{{ restaurant.id }}</td>
+        <td>{{ restaurant.name }}</td>
+        <td>{{ restaurant.address }}</td>
+        <td>{{ restaurant.city }}</td>
+        <td>{{ restaurant.open_time }}</td>
+        <td>{{ restaurant.close_time }}</td>
+        <td>{{ restaurant.cuisine_type }}</td>
+        <td>{{ restaurant.descrip }}</td>
+        <td>{{ restaurant.is_pureveg ? 'Yes' : 'No' }}</td>
+        <td>{{ restaurant.license_id }}</td>
+        <td>{{ restaurant.phone_number }}</td>
+        <td>{{ restaurant.ratings }}</td>
+        <td>
+          <button ng-click="removeRestaurant(restaurant.id)">Remove</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table ng-show="showTable === 'viewDishes'">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Is Veg</th>
+        <th>Price</th>
+        <th>Restaurant FK</th>
+        <th>Picture</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="dish in dishes">
+        <td>{{ dish.id }}</td>
+        <td>{{ dish.name }}</td>
+        <td>{{ dish.descrip }}</td>
+        <td>{{ dish.is_veg ? 'Yes' : 'No' }}</td>
+        <td>{{ dish.price }}</td>
+        <td>{{ dish.restaurantId }}</td>
+        <td>{{ dish.picture }}</td>
+        <td><button ng-click="removeDish(dish.restaurantId, dish.id)">Remove</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <div ng-show="showTable === 'viewRestaurants'">
+    <button ng-click="toggleAddRestaurantForm()">Add Restaurant</button>
+  </div>
+
+  <div ng-show="showAddRestaurantForm">
+    <h2>Add New Restaurant</h2>
+    <form ng-submit="addNewRestaurant()">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" ng-model="addRestaurant.name" required><br>
+
+      <label for="address">Address:</label>
+      <input type="text" id="address" name="address" ng-model="addRestaurant.address"><br>
+
+      <label for="city">City:</label>
+      <input type="text" id="city" name="city" ng-model="addRestaurant.city"><br>
+
+      <label for="openTime">Open Time:</label>
+      <input type="text" id="openTime" name="openTime" ng-model="addRestaurant.open_time"><br>
+
+      <label for="closeTime">Close Time:</label>
+      <input type="text" id="closeTime" name="closeTime" ng-model="addRestaurant.close_time"><br>
+
+      <label for="cuisineType">Cuisine Type:</label>
+      <input type="text" id="cuisineType" name="cuisineType" ng-model="addRestaurant.cuisine_type"><br>
+
+      <label for="description">Description:</label>
+      <textarea id="description" name="description" ng-model="addRestaurant.descrip"></textarea><br>
+
+      <label for="isPureVeg">Is Pure Veg:</label>
+      <input type="checkbox" id="isPureVeg" name="isPureVeg" ng-model="addRestaurant.is_pureveg"><br>
+
+      <label for="licenseId">License ID:</label>
+      <input type="text" id="licenseId" name="licenseId" ng-model="addRestaurant.license_id"><br>
+
+      <label for="phoneNumber">Phone Number:</label>
+      <input type="text" id="phoneNumber" name="phoneNumber" ng-model="addRestaurant.phone_number"><br>
+
+      <label for="ratings">Ratings:</label>
+      <input type="number" id="ratings" name="ratings" ng-model="addRestaurant.ratings" step="0.1"><br>
+
+      <button type="submit">Add Restaurant</button>
+      <button type="button" ng-click="closeAddRestaurantForm()">Cancel</button>
+    </form>
+  </div>
+
+
+  <div ng-show="showTable === 'viewDishes'">
+    <button ng-click="toggleAddDishForm()">Add Dish</button>
+  </div>
+
+  <div ng-show="showAddDishForm">
+    <h2>Add New Dish</h2>
+    <form ng-submit="addNewDish()">
+      <label for="dishName">Dish Name:</label>
+      <input type="text" id="dishName" name="dishName" ng-model="addDish.name" required><br>
+
+      <label for="dishDescription">Description:</label>
+      <textarea id="dishDescription" name="dishDescription" ng-model="addDish.descrip"></textarea><br>
+
+      <label for="isVeg">Is Vegetarian:</label>
+      <input type="checkbox" id="isVeg" name="isVeg" ng-model="addDish.is_veg"><br>
+
+      <label for="dishPrice">Price:</label>
+      <input type="number" id="dishPrice" name="dishPrice" ng-model="addDish.price" step="0.01"><br>
+
+
+      <label for="restaurantId">Restaurant ID:</label>
+      <input type="number" id="restaurantId" name="restaurantId" ng-model="addDish.restaurant_fk" required><br>
+
+      <label for="dishPicture">Picture URL:</label>
+      <input type="text" id="dishPicture" name="dishPicture" ng-model="addDish.picture"><br>
+
+      <button type="submit">Add Dish</button>
+      <button type="button" ng-click="closeAddDishForm()">Cancel</button>
+    </form>
+  </div>
+  <table ng-show="showTable === 'viewOrders'">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Order Date</th>
+            <th>Payment Method</th>
+            <th>Total Cost</th>
+            <th>User ID</th>
+            <th>Restaurant ID</th>
+            <th> Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="order in orders">
+            <td>{{ order.id }}</td>
+            <td>{{ order.order_date_time | formatDateTime }}</td>
+            <td>{{ order.payment_method }}</td>
+            <td>{{ order.total_cost |currency: indianCurrencySymbol }}</td>
+            <td>{{ order.userId }}</td>
+            <td>{{ order.restaurantId }}</td>
+            <td>
+              <button ng-click="showOrderDetails(order.id)">View Order Details</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table ng-show="showOrderDetailsTable">
+  <thead>
+    <tr>
+      <th>Dish Id</th>
+      <th>Quantity</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="orderDetail in orderDetails">
+      <td>{{ orderDetail.dishId }}</td>
+      <td>{{ orderDetail.quantity }}</td>
+      <td>{{ orderDetail.price | currency: indianCurrencySymbol }}</td>
+    </tr>
+  </tbody>
+</table>
+

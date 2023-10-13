@@ -6,12 +6,12 @@ angular.module('myApp').controller('indexController', ['$scope','$location', fun
     };
 
 
-    $scope.init=function(){
-        $location.path('/login');
+    // $scope.init=function(){
+    //     $location.path('/login');
 
-    }
+    // }
     
 
-    $scope.init();
+    // $scope.init();
     
 }]);

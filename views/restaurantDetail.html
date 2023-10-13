@@ -1,47 +1,22 @@
-<!-- login.html -->
-<!DOCTYPE html>
-<html lang="en" ng-app="myApp">
-<head>
-    <meta charset="UTF-8" />
-    <title>Munchie</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-    <script src="../app/app.js"></script>
 
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
-    <!-- Include CSS and JavaScript dependencies as needed -->
-    <link rel="stylesheet" type="text/css" href="../assests/styles/styles.css">
-    <script src="../app/footer-part/footerController.js"></script>
-    <script src="../app/footer-part/footerDirective.js"></script>
-    <script src="../app/header-part/headerDirective.js"></script>
-    <script src="../app/header-part/headerController.js"></script>
-    <script src="../app/controllers/restaurantDetailsController.js"></script>
-    <script src="../app/services/restaurantDetailsService.js"></script>
-    <script src="../app/services/restaurantService.js"></script>
-</head>
-<body >
- 
-    <my-header></my-header>
-
-
-    <!-- <div class="restaurant-list" ng-controller="RestaurantController">
-        <div class="restaurant-items" ng-repeat="restaurant in restaurants">
+<!-- 
+    <div class="restaurant-list" ng-controller="RestaurantDetailsController">
+        <div class="restaurant-items" ng-repeat="dish in dishes" >
             <div class="list-item">
-                <a href="{{ restaurant.picture }}" class="place-link">
+                <a href="#" class="place-link"> 
                     <div class="place">
-                        <img class="restaurant-image" alt="{{ restaurant.name }}" ng-src="{{ restaurant.picture }}" width="300" height="250">
+                        <img class="restaurant-image" alt="{{ dish.name }}" ng-src="{{ dish.picture }}" > 
                         <div class="place-details">
-                            <div class="name">{{ restaurant.name }}</div>
-                            <div class="food-items" title="{{ restaurant.cuisineType }}">{{ restaurant.cuisineType }}</div>
+                            <div class="name">{{ dish.name }}</div>
+                            
                             <div class="info-div">
                                 <div class="rating">
-                                    <span class="icon-star"><i class="fa-solid fa-star"></i></span>
-                                    <span>{{ restaurant.rating }}</span>
+                                    <span class="icon-star"><i class="fas fa-star"></i></span>
+                                    <span>{{ dish.ratings }}</span> 
                                 </div>
                                 <div>•</div>
-                                <div>{{ restaurant.open_time }} - {{ restaurant.close_time }}</div> 
-                                <div>•</div>
+                               
+                                <div class="veg-status">{{ isVegetarian(dish) }}</div>
 
                             </div>
                            
@@ -50,40 +25,38 @@
                 </a>
             </div>
         </div>
-    </div>-->
-
-    <div class="restaurant-list" ng-controller="RestaurantDetailsController">
-        <div class="restaurant-items" ng-repeat="dish in dishes">
-            <div class="list-item">
-                <a href="{{ restaurant.picture }}" class="place-link"> <!-- Use 'picture' for the image link -->
-                    <div class="place">
-                        <img class="restaurant-image" alt="{{ dish.name }}" ng-src="{{ dish.picture }}" width="254" height="160"> <!-- Use 'picture' for the image source -->
-                        <div class="place-details">
-                            <div class="name">{{ dish.name }}</div>
-                            
-                            <div class="info-div">
-                                <div class="rating">
-                                    <span class="icon-star"><i class="fas fa-star"></i></span>
-                                    <span>{{ dish.ratings }}</span> <!-- Use 'ratings' for the rating -->
-                                </div>
-                                <div>•</div>
-                               
-                                <div class="veg-status">{{ isVegetarian(dish) }}</div>
-
+    </div>
+ -->
+ <div class="restaurant-list" ng-controller="RestaurantDetailsController">
+    <div class="restaurant-items" ng-repeat="dish in dishes">
+        <div class="list-item">
+            <a href="#" class="place-link">
+                <div class="place">
+                    <img class="restaurant-image" alt="{{ dish.name }}" ng-src="{{ dish.picture }}">
+                    <div class="place-details">
+                        <div class="name">{{ dish.name }}</div>
+                        
+                        <div class="info-div">
+                            <div class="rating">
+                                <span class="icon-star"><i class="fas fa-star"></i></span>
+                                <span>{{ dish.ratings }}</span>
                             </div>
-                            <!-- <div class="offer-div">
-                                <span class="icon-offer-filled"><i class="fa-solid fa-tag"></i></span>
-                                <span class="offer-text">{{ restaurant.offer }}</span>
-                            </div> -->
+                            <div>•</div>
+                            <div class="veg-status">{{ isVegetarian(dish) }}</div>
+                        </div>
+                        
+                        <!-- Add to Cart Section -->
+                        <div class="add-to-cart">
+                            <button ng-click="addToCart(dish)">Add to Cart</button>
+                            <div class="quantity-control">
+                                <button ng-click="decrementQuantity(dish)">-</button>
+                                <span>{{ dish.quantity || 0 }}</span>
+                                <button ng-click="incrementQuantity(dish)">+</button>
+                            </div>
                         </div>
                     </div>
-                </a>
-            </div>
+                </div>
+            </a>
         </div>
     </div>
-    
-    
-
-    <my-footer></my-footer>
-</body>
-</html>
+</div>

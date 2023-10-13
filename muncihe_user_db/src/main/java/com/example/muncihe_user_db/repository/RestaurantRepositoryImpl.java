@@ -1,7 +1,9 @@
 package com.example.muncihe_user_db.repository;
 
+
 import com.example.muncihe_user_db.model.Restaurant;
 
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -18,24 +20,35 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
 
     @Override
     public List<Restaurant> getAllRestaurants() {
-        String sql = "SELECT * FROM restaurant";
-        return jdbcTemplate.query(
+        String sql = "SELECT * from restaurant";
+
+        return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Restaurant.class));
+    }
+
+    @Override
+    public void addRestaurant(Restaurant restaurant) {
+        String sql = "INSERT INTO restaurant (name, address, city, close_time, cuisine_type, descrip, is_pureveg, license_id, open_time, phone_number, ratings, picture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(
             sql,
-            (rs, rowNum) -> new Restaurant(
-                rs.getInt("id"),
-                rs.getString("name"),
-                rs.getString("city"),
-                rs.getString("descrip"),
-                rs.getString("address"),
-                rs.getString("license_id"),
-                rs.getInt("open_time"),
-                rs.getInt("close_time"),
-                rs.getString("cuisine_type"),
-                rs.getLong("phone_number"),
-                rs.getDouble("ratings"),
-                rs.getBoolean("is_pureveg"),
-                rs.getString("picture")
-            )
+            restaurant.getName(),
+            restaurant.getAddress(),
+            restaurant.getCity(),
+            restaurant.getClose_time(),
+            restaurant.getCuisineType(),
+            restaurant.getDescrip(),
+            restaurant.is_pureveg(),
+            restaurant.getLicense_id(),
+            restaurant.getOpen_time(),
+            restaurant.getPhoneNumber(),
+            restaurant.getRatings(),
+            restaurant.getPicture()
         );
     }
+
+    @Override
+    public void removeRestaurant(Long restaurantId) {
+        String sql = "DELETE FROM restaurant WHERE id = ?";
+        jdbcTemplate.update(sql, restaurantId);
+    }
+    
 }

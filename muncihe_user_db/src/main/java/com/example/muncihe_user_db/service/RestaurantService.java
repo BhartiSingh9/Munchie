@@ -6,4 +6,6 @@ import com.example.muncihe_user_db.model.Restaurant;
 
 public interface RestaurantService {
     List<Restaurant> getAllRestaurants();
+    void addRestaurant(Restaurant restaurant);
+    void removeRestaurant(Long restaurantId);
 }

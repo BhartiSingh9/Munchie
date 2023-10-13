@@ -18,4 +18,12 @@ public class RestaurantServiceImpl implements RestaurantService {
     public List<Restaurant> getAllRestaurants() {
         return restaurantRepository.getAllRestaurants();
     }
+    @Override
+    public void addRestaurant(Restaurant restaurant) {
+        restaurantRepository.addRestaurant(restaurant);
+    }
+    @Override
+    public void removeRestaurant(Long restaurantId) {
+        restaurantRepository.removeRestaurant(restaurantId);
+    }
 }
