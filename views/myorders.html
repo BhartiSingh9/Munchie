@@ -1,0 +1,25 @@
+<div ng-controller="OrderController">
+    <h1>My Orders</h1>
+  
+    <table>
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Order Date</th>
+          <th>Payment Method</th>
+          <th>Total Cost</th>
+          <th>Restaurant Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="order in orders">
+          <td>{{ order.id }}</td>
+          <td>{{ formatDate(order.order_date_time) }}</td>
+          <td>{{ order.payment_method }}</td>
+          <td>{{ order.total_cost | currency }}</td>
+          <td>{{ order.restaurantName }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

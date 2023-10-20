@@ -1,11 +1,9 @@
-package com.example.muncihe_user_db.service;
+package com.example.muncihe_user_db.restaurants;
 
 import java.util.List;
-
-import com.example.muncihe_user_db.model.Restaurant;
 
 public interface RestaurantService {
     List<Restaurant> getAllRestaurants();
     void addRestaurant(Restaurant restaurant);
-    void removeRestaurant(Long restaurantId);
+    void removeRestaurant(int restaurantId);
 }

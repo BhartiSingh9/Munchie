@@ -3,7 +3,9 @@ angular.module("myApp").controller('AdminController', ['$scope', 'AdminService',
     $scope.orders = [];
     $scope.restaurants = [];
     $scope.dishes = [];
-     
+    $scope.showManageRestaurantsDropdown = false; 
+    $scope.isAddRestaurantFormOpen = false;
+    $scope.isAddDishFormOpen = false;
     $scope.addRestaurant = {
         address: "",
         city: "",
@@ -26,34 +28,55 @@ angular.module("myApp").controller('AdminController', ['$scope', 'AdminService',
         restaurant_fk: 0, 
         picture: "" 
     };
-    
-    $scope.toggleAddRestaurantForm = function() {
-        $scope.showAddRestaurantForm = true; 
+    $scope.getRestaurantName = function(restaurantId) {
+        for (var i = 0; i < $scope.restaurants.length; i++) {
+          if ($scope.restaurants[i].id === restaurantId) {
+            return $scope.restaurants[i].name;
+          }
+        }
+        return 'Restaurant Not Found'; 
+      }
+      $scope.toggleAddRestaurantForm = function() {
+        $scope.showTable = $scope.showAddRestaurantForm ? 'viewRestaurants' : 'addRestaurantForm';
+        $scope.showAddRestaurantForm = !$scope.showAddRestaurantForm;
     };
+    
     
     $scope.closeAddRestaurantForm = function() {
         $scope.showAddRestaurantForm = false; 
     };
 
     $scope.toggleAddDishForm = function() {
-        $scope.showAddDishForm = true;
+        $scope.showTable = $scope.showAddDishForm ? 'viewDishes' : 'addDishForm';
+        $scope.showAddDishForm = !$scope.showAddDishForm;
     };
-
+    $scope.closeOrderDetails = function() {
+        $scope.showOrderDetailsTable = false;
+    };
     $scope.closeAddDishForm = function() {
         $scope.showAddDishForm = false;
     };
-
+    $scope.toggleManageDishesDropdown=function(){
+        $scope.showManageDishesDropdown = !$scope.showManageDishesDropdown;
+    }
+    $scope.toggleManageRestaurantsDropdown = function() {
+        $scope.showManageRestaurantsDropdown = !$scope.showManageRestaurantsDropdown;
+    };
+  
     $scope.toggleTable = function(table) {
         $scope.showTable = table;
 
         if (table === 'viewOrders') {
             AdminService.getOrders().then(function (response) {
+                $scope.showAddRestaurantForm = false;
+                $scope.showAddDishForm =false;
                 $scope.orders = response.data;
             }, function (error) {
                 console.error('Error fetching orders: ' + error);
             });
         } else if (table === 'viewRestaurants') {
             AdminService.getRestaurants().then(function (response) {
+                $scope.showAddRestaurantForm = false;
                 console.log('beforee');
                 $scope.restaurants = response.data;
                 console.log('Fetched restaurants:', $scope.restaurants);
@@ -62,7 +85,14 @@ angular.module("myApp").controller('AdminController', ['$scope', 'AdminService',
             });
         } else if (table === 'viewDishes') {
             AdminService.getDishes().then(function (response) {
+                $scope.showAddRestaurantForm = false;
+                $scope.showAddDishForm =false;
                 $scope.dishes = response.data;
+                AdminService.getRestaurants().then(function (restaurantResponse) {
+                    $scope.restaurants = restaurantResponse.data;
+                }, function (restaurantError) {
+                    console.error('Error fetching restaurants: ' + restaurantError);
+                });
             }, function (error) {
                 console.error('Error fetching dishes: ' + error);
             });
@@ -72,6 +102,8 @@ angular.module("myApp").controller('AdminController', ['$scope', 'AdminService',
     $scope.addNewRestaurant = function() {
         AdminService.addRestaurant($scope.addRestaurant).then(function(response) {
             console.log("Restaurant added: " + response.data);
+            $scope.isAddRestaurantFormOpen = !$scope.isAddRestaurantFormOpen;
+            if (!$scope.isAddRestaurantFormOpen) {
             $scope.addRestaurant = {
                 address: "",
                 city: "",
@@ -85,6 +117,7 @@ angular.module("myApp").controller('AdminController', ['$scope', 'AdminService',
                 phone_number: 0,
                 ratings: 0.0,
             };
+        }
         }, function(error) {
             console.error('Error adding restaurant: ' + error);
         });
@@ -107,6 +140,8 @@ angular.module("myApp").controller('AdminController', ['$scope', 'AdminService',
     
         AdminService.addDish(restaurantId, $scope.addDish).then(function(response) {
             console.log("Dish added: " + response.data);
+            $scope.isAddDishFormOpen = !$scope.isAddDishFormOpen;
+            if (!$scope.isAddDishFormOpen) {
             $scope.addDish = {
                 name: "",
                 descrip: "",
@@ -115,6 +150,7 @@ angular.module("myApp").controller('AdminController', ['$scope', 'AdminService',
                 restaurant_fk: 1,
                 picture: ""
             };
+        }
         }, function(error) {
             console.error('Error adding dish: ' + error);
         });
@@ -142,6 +178,7 @@ angular.module("myApp").controller('AdminController', ['$scope', 'AdminService',
     $scope.showOrderDetails = function(orderId) {
         AdminService.getOrderDetails(orderId).then(function(response) {
           $scope.orderDetails = response.data;
+          $scope.showTable = 'viewOrderDetails';
           $scope.showOrderDetailsTable = true;
       
           // Map dish IDs to dish names

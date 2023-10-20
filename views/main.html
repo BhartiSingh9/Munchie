@@ -1,4 +1,4 @@
-
+<!-- 
 
     <div class="restaurant-list" ng-controller="RestaurantController">
         <div class="restaurant-items" ng-repeat="restaurant in restaurants" ng-click="restaurantred(restaurant.id)">
@@ -28,4 +28,38 @@
         </div>
     </div>
     
+     -->
+     <div class="container">
+      
+          <user-sidebar></user-sidebar>
+        
+        <div class="content custom-content">
+          <div class="search-bar">
+            <input type="text" ng-model="searchText" placeholder="Search by restaurant name">
+            <button ng-click="searchRestaurants()">Search</button>
+            <button ng-click="loadAllRestaurants()">Show All Restaurants</button>
+          </div>
+            <div class="restaurant-list">
+                <div class="list-item" ng-repeat="restaurant in filteredRestaurants" ng-click="restaurantred(restaurant.id)">
+                    <a class="place-link">
+                        <div class="place">
+                            <img class="restaurant-image" alt="{{ restaurant.name }}" ng-src="{{ restaurant.picture }}">
+                            <div class="place-details">
+                                <div class="name">{{ restaurant.name }}</div>
+                                <div class="cuisine-type">{{ restaurant.cuisineType }}</div>
+                                <div class="info-div">
+                                    <div class="rating">
+                                        <span class="icon-star"><i class="fas fa-star"></i></span>
+                                        <span>{{ restaurant.ratings }}</span>
+                                    </div>
+                                    <div class="open-close-time">{{ restaurant.open_time }} - {{ restaurant.close_time }}</div>
+                                    <div class="veg-status">{{ isVegetarian(restaurant) }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
     

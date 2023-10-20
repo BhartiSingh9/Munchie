@@ -85,43 +85,59 @@
 // });
 
 
-angular.module("myApp").service('restaurantService', ['$http', function($http) {
+angular.module("myApp").service('restaurantService', ['$http', function ($http) {
   return {
-      getAllRestaurants: function () {
-          return $http({
-              url: 'http://localhost:8080/restaurants',  
-              method: 'GET',
-              headers: {
-                  'Content-Type': 'application/json', 
-                  'Accept': 'application/json', 
-              },
-              params: {},
-          });
-      },
+    getAllRestaurants: function () {
+      return $http({
+        url: 'http://localhost:8080/restaurants',
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        params: {},
+      });
+    },
   };
 }]);
 
-angular.module("myApp").controller('RestaurantController', ['$scope', 'restaurantService','$location', function ($scope, restaurantService,$location) {
+angular.module("myApp").controller('RestaurantController', ['$scope', 'restaurantService', '$location', function ($scope, restaurantService, $location) {
   $scope.restaurants = [];
+  $scope.filteredRestaurants = [];
+  $scope.searchText = '';
 
-  
-  restaurantService.getAllRestaurants().then(function (response) {
-    console.log(response.data);
-      $scope.restaurants = response.data;
-  }, function (error) {
-     
-      console.error('Error fetching restaurant data: ' + error);
-  });
-  $scope.isVegetarian = function(restaurant) {
-    return restaurant.is_pureveg ? "Veg" : "Non-Veg";
+  // Function to load all restaurants
+  var loadAllRestaurants = function () {
+      restaurantService.getAllRestaurants().then(function (response) {
+          console.log(response.data);
+          $scope.restaurants = response.data;
+          $scope.filteredRestaurants = $scope.restaurants;
+      }, function (error) {
+          console.error('Error fetching restaurant data: ' + error);
+      });
+  };
 
-
-    
+  // Call the function to load all restaurants
+  loadAllRestaurants();
+   // Function to toggle between search results and all restaurants
+   $scope.loadAllRestaurants = function() {
+    loadAllRestaurants($scope.restaurants);
+    $scope.showAllRestaurants = false;
 };
-$scope.restaurantred=function(restaurantId){
-  $location.path(`restaurant/${restaurantId}`)
-}
 
+
+  $scope.isVegetarian = function (restaurant) {
+      return restaurant.is_pureveg ? "Veg" : "Non-Veg";
+  };
+
+  $scope.restaurantred = function (restaurantId) {
+      $location.path(`restaurant/${restaurantId}`);
+  };
+
+  // Function to filter restaurants based on search text
+  $scope.searchRestaurants = function () {
+      $scope.filteredRestaurants = $scope.restaurants.filter(function (restaurant) {
+          return restaurant.name.toLowerCase().includes($scope.searchText.toLowerCase());
+      });
+  };
 }]);
-
-

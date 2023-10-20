@@ -1,62 +1,42 @@
-
-<!-- 
-    <div class="restaurant-list" ng-controller="RestaurantDetailsController">
-        <div class="restaurant-items" ng-repeat="dish in dishes" >
-            <div class="list-item">
-                <a href="#" class="place-link"> 
-                    <div class="place">
-                        <img class="restaurant-image" alt="{{ dish.name }}" ng-src="{{ dish.picture }}" > 
-                        <div class="place-details">
-                            <div class="name">{{ dish.name }}</div>
-                            
-                            <div class="info-div">
-                                <div class="rating">
-                                    <span class="icon-star"><i class="fas fa-star"></i></span>
-                                    <span>{{ dish.ratings }}</span> 
-                                </div>
-                                <div>•</div>
-                               
-                                <div class="veg-status">{{ isVegetarian(dish) }}</div>
-
-                            </div>
-                           
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
- -->
- <div class="restaurant-list" ng-controller="RestaurantDetailsController">
-    <div class="restaurant-items" ng-repeat="dish in dishes">
-        <div class="list-item">
-            <a href="#" class="place-link">
-                <div class="place">
+<div class="container">
+    <user-sidebar></user-sidebar>
+    <div class="content" ng-controller="RestaurantDetailsController">
+        <div class="dishes-list">
+            <div class="list-item" ng-repeat="dish in dishes">
+                <div class="place-link">
                     <img class="restaurant-image" alt="{{ dish.name }}" ng-src="{{ dish.picture }}">
-                    <div class="place-details">
+                    <div class="place-name-div">
                         <div class="name">{{ dish.name }}</div>
-                        
-                        <div class="info-div">
-                            <div class="rating">
-                                <span class="icon-star"><i class="fas fa-star"></i></span>
-                                <span>{{ dish.ratings }}</span>
-                            </div>
-                            <div>•</div>
-                            <div class="veg-status">{{ isVegetarian(dish) }}</div>
-                        </div>
-                        
-                        <!-- Add to Cart Section -->
-                        <div class="add-to-cart">
-                            <button ng-click="addToCart(dish)">Add to Cart</button>
-                            <div class="quantity-control">
-                                <button ng-click="decrementQuantity(dish)">-</button>
-                                <span>{{ dish.quantity || 0 }}</span>
-                                <button ng-click="incrementQuantity(dish)">+</button>
-                            </div>
-                        </div>
+                        <div class="cuisine-type">{{ dish.cuisine }}</div>
+                        <div class="food-items">{{ dish.description }}</div>
                     </div>
                 </div>
-            </a>
+                <div class="info-div">
+                    <div class="rating">
+                        <span class="icon-star"><i class="fas fa-star"></i></span>
+                        <span>{{ dish.ratings }}</span>
+                    </div>
+                    
+                    <div class="veg-status">{{ isVegetarian(dish) }}</div>
+                </div>
+                <div class="add-to-cart">
+                    <button ng-click="addToCart(dish)">Add to Cart</button>
+                    <div class="quantity-control">
+                        <button ng-click="decrementQuantity(dish)">-</button>
+                        <span>{{ dish.quantity || 0 }}</span>
+                        <button ng-click="incrementQuantity(dish)">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cart-section">
+            <h2>Cart</h2>
+            <div ng-repeat="item in cart">
+                {{ item.name }} - Quantity: {{ item.quantity }}
+                <button ng-click="incrementQuantity(item)">+</button>
+                <button ng-click="decrementQuantity(item)">-</button>
+            </div>
+            <button ng-click="placeOrder()">Place Order</button>
         </div>
     </div>
 </div>

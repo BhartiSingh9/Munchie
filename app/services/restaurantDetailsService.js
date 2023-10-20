@@ -20,6 +20,19 @@ angular.module("myApp").service('restaurantDetailsService', ['$http', function($
                 },
                 params: {},
             });
+        },
+        placeorder: function(orderData){
+            return $http({
+                url:'http://localhost:8080/orders/place-order',
+                method:'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                data: orderData,
+
+            })
         }
+        
     };
 }]);

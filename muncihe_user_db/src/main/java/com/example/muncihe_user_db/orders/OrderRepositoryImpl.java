@@ -1,4 +1,4 @@
-package com.example.muncihe_user_db.repository;
+package com.example.muncihe_user_db.orders;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,8 +7,6 @@ import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-
-import com.example.muncihe_user_db.model.Orders;
 
 @Repository
 public class OrderRepositoryImpl implements OrderRepository {
@@ -26,7 +24,7 @@ public List<Orders> getAllOrders() {
         public Orders mapRow(ResultSet rs, int rowNum) throws SQLException {
             Orders order = new Orders();
             order.setId(rs.getInt("ID"));
-            order.setUserId(rs.getInt("UserID")); // Use the correct column name
+            order.setUserId(rs.getInt("UserID"));
             order.setRestaurantId(rs.getInt("RestaurantID"));
             order.setOrder_date_time(rs.getTimestamp("Order_date_time").toLocalDateTime());
             order.setPayment_method(rs.getString("Payment_Method"));
@@ -35,5 +33,16 @@ public List<Orders> getAllOrders() {
             return order;
         }
     });
-}   
+}
+    @Override
+    public void save(Orders order) {
+        String sql = "INSERT INTO orders (UserID, RestaurantID, Order_date_time, Payment_Method, Total_Cost) " +
+                     "VALUES (?, ?, ?, ?, ?)";
+    
+      
+        jdbcTemplate.update(sql, order.getUserId(), order.getRestaurantId(), 
+                          order.getOrder_date_time(), order.getPayment_method(), 
+                          order.getTotal_cost());
+    }
+    
 }

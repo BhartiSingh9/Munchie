@@ -6,7 +6,7 @@ angular.module('myApp').controller('SearchController', ['$scope', function($scop
     };
 
     $scope.search = function() {
-        // Implement your search functionality here
+      
         console.log('Searching for:', $scope.searchQuery);
     };
 }]);

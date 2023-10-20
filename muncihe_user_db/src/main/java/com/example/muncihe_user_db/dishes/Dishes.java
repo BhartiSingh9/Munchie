@@ -1,4 +1,4 @@
-package com.example.muncihe_user_db.model;
+package com.example.muncihe_user_db.dishes;
 
 
 

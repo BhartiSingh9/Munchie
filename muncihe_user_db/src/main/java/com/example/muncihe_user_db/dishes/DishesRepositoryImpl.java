@@ -1,4 +1,4 @@
-package com.example.muncihe_user_db.repository;
+package com.example.muncihe_user_db.dishes;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,8 +7,7 @@ import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-
-import com.example.muncihe_user_db.model.Dishes;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
 @Repository
@@ -49,13 +48,49 @@ public List<Dishes> getAllDishes() {
 
     @Override
     public void addDish(Dishes dish) {
+        // Custom validation for all fields
+        if (dish.getDescrip() == null || dish.getDescrip().isEmpty()) {
+            throw new IllegalArgumentException("Description is required.");
+        }
+        if (dish.getIsVeg() == null) {
+            throw new IllegalArgumentException("isVeg is required.");
+        }
+        if (dish.getName() == null || dish.getName().isEmpty()) {
+            throw new IllegalArgumentException("Name is required.");
+        }
+        if (dish.getPrice() == null) {
+            throw new IllegalArgumentException("Price is required.");
+        }
+        if (dish.getRestaurantId() <= 0) {
+            throw new IllegalArgumentException("Invalid restaurant ID.");
+        }
+        if (dish.getPicture() == null || dish.getPicture().isEmpty()) {
+            throw new IllegalArgumentException("Picture URL is required.");
+        }
+
         String sql = "INSERT INTO dishes (descrip, is_veg, name, price, restaurant_fk, picture) VALUES (?, ?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, dish.getDescrip(), dish.getIsVeg(), dish.getName(), dish.getPrice(),
-                dish.getRestaurantId(), dish.getPicture());
+        try {
+            jdbcTemplate.update(
+                sql,
+                dish.getDescrip(),
+                dish.getIsVeg(),
+                dish.getName(),
+                dish.getPrice(),
+                dish.getRestaurantId(),
+                dish.getPicture()
+            );
+        } catch (EmptyResultDataAccessException e) {
+            throw new IllegalArgumentException("The restaurant with ID " + dish.getRestaurantId() + " was not found.");
+        }
     }
 
     @Override
     public void removeDish(int dishId) {
+        // Custom validation
+        if (dishId <= 0) {
+            throw new IllegalArgumentException("Invalid dish ID.");
+        }
+
         String sql = "DELETE FROM dishes WHERE id = ?";
         jdbcTemplate.update(sql, dishId);
     }

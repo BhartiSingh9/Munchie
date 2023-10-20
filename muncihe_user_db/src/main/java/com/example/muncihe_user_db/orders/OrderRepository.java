@@ -1,11 +1,12 @@
-package com.example.muncihe_user_db.repository;
+package com.example.muncihe_user_db.orders;
 
 import java.util.List;
 
-
-import com.example.muncihe_user_db.model.Orders;
-
 public interface OrderRepository {
      List<Orders> getAllOrders();
+
+     void save(Orders order);
+
+
     
 }
