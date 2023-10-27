@@ -26,8 +26,10 @@ public class OrderDetailsRepositoryImpl implements OrderDetailsRepository {
     }
     @Override
 public void save(OrderDetails orderDetails) {
-    String sql = "INSERT INTO orderdetails (orderId, dishId, quantity) " +
-                 "VALUES (?, ?, ?)";
+    String sql = """
+                 INSERT INTO orderdetails (orderId, dishId, quantity) \
+                 VALUES (?, ?, ?)\
+                 """;
 
     jdbcTemplate.update(sql, 
         orderDetails.getOrderId(),

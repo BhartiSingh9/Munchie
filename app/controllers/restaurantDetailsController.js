@@ -75,17 +75,27 @@ angular.module('myApp').controller('RestaurantDetailsController', ['$scope', '$h
     };
 
     $scope.placeOrder = function () {
+        var orderDetailsDtoArray = [];
+
+        for (var i = 0; i < $scope.cart.length; i++) {
+            var dish = $scope.cart[i];
+            var orderDetailsDto = {
+                orderId: 1,
+                dishId: dish.id,
+                quantity: dish.quantity,
+                
+            };
+            orderDetailsDtoArray.push(orderDetailsDto);
+        }
+
         var orderDto = {
             userId: 1, 
             restaurantId: restaurantId,  
             paymentMethod: "Credit Card", 
-           
-            orderDetails: $scope.cart ,
-            
+            orderDetails: orderDetailsDtoArray,
             totalCost: calculateTotal(),
         };
-      
-        console.log($scope.cart);
+        console.log(orderDetailsDto);
         $scope.showOrderSuccessAlert = true;
         $scope.cart = [];
         $scope.totalCost = 0;

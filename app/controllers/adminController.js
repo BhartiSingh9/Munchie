@@ -137,7 +137,7 @@ angular.module("myApp").controller('AdminController', ['$scope', 'AdminService',
 
     $scope.addNewDish = function() {
         
-        const restaurantId = $scope.addDish.restaurant_fk; // Get restaurant_id from the form
+        const restaurantId = $scope.addDish.restaurant_fk; 
     
     
         AdminService.addDish(restaurantId, $scope.addDish).then(function(response) {

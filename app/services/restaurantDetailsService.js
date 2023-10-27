@@ -6,7 +6,7 @@ angular.module("myApp").service('restaurantDetailsService', ['$http', function (
                 url: 'http://localhost:8080/dishes',
                 method: "GET",
                 header: {
-                    'Content-Type': 'application/json', // Set the appropriate content type
+                    'Content-Type': 'application/json', 
                     'Accept': 'application/json',
                 },
                 params: {},
@@ -14,7 +14,7 @@ angular.module("myApp").service('restaurantDetailsService', ['$http', function (
         },
         getRestaurantDetails: function (restaurantId) {
             return $http({
-                url: 'http://localhost:8080/restaurants/' + restaurantId, // Adjust the URL to match your backend API
+                url: 'http://localhost:8080/restaurants/' + restaurantId, 
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ angular.module("myApp").service('restaurantDetailsService', ['$http', function (
         },
         getDishesForRestaurant: function (restaurantId) {
             return $http({
-                url: 'http://localhost:8080/dishes/restaurants/' + restaurantId, // Adjust the URL to match your backend API
+                url: 'http://localhost:8080/dishes/restaurants/' + restaurantId, 
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

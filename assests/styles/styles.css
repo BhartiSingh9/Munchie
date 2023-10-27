@@ -1,4 +1,4 @@
-/* Reset some default styles */
+
 body, h1, h2, h3, p {
   margin: 0;
   padding: 0;
@@ -30,11 +30,11 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 5px; /* Adjust the height of the shading */
-  background: linear-gradient(to bottom, transparent, #f0f0f0); /* Adjust the shading color */
+  height: 5px; 
+  background: linear-gradient(to bottom, transparent, #f0f0f0);
 }
 
-/* Rest of your existing styles */
+
 .navbar-container .left {
   display: flex;
   align-items: center;
@@ -60,14 +60,14 @@ body {
   font-weight: 700;
   cursor: pointer;
   padding: 5px 10px;
-  transition: background-color 0.3s ease; /* Add transition effect */
+  transition: background-color 0.3s ease; 
 }
 
 .welcome-text:hover,
 .my-orders:hover,
 .cart:hover {
-  background-color: transparent; /* Change background color on hover */
-  color: #d6640d; /* Change text color on hover */
+  background-color: transparent; 
+  color: #d6640d; 
 }
 
 
@@ -977,7 +977,7 @@ input[type="checkbox"] {
   font-size: 16px;
 }
 
-/* Apply a fade-in effect to the overlay */
+
 .order-success-overlay.show {
   opacity: 1;
   pointer-events: auto;

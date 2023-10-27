@@ -2,7 +2,6 @@ angular.module('myApp').controller('HeaderController', ['$scope', '$http', '$loc
     $scope.headerItems = [];
     $scope.userOrders = [];
 
-    // Function to fetch restaurant name by ID
     function fetchRestaurantName(restaurantId) {
         return restaurantService.getRestaurantById(restaurantId)
             .then(function (response) {

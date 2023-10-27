@@ -40,8 +40,10 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public void save(Orders order) {
-        String sql = "INSERT INTO orders (UserID, RestaurantID, Order_date_time, Payment_Method, Total_Cost) " +
-                "VALUES (?, ?, ?, ?, ?)";
+        String sql = """
+                INSERT INTO orders (UserID, RestaurantID, Order_date_time, Payment_Method, Total_Cost) \
+                VALUES (?, ?, ?, ?, ?)\
+                """;
 
         jdbcTemplate.update(sql, order.getUserId(), order.getRestaurantId(),
                 order.getOrder_date_time(), order.getPayment_method(),
