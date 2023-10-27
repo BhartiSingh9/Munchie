@@ -16,10 +16,28 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
     }
 
     @Override
-    public List<Restaurant> getAllRestaurants() {
-        String sql = "SELECT * from restaurant";
-        return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Restaurant.class));
-    }
+public List<Restaurant> getAllRestaurants() {
+    String sql = "SELECT * FROM restaurant";
+    return jdbcTemplate.query(sql, (rs, rowNum) -> {
+        Restaurant restaurant = new Restaurant();
+        restaurant.setId(rs.getInt("id"));
+        restaurant.setName(rs.getString("name"));
+        restaurant.setCity(rs.getString("city"));
+        restaurant.setDescrip(rs.getString("descrip"));
+        restaurant.setAddress(rs.getString("address"));
+        restaurant.setLicense_id(rs.getString("license_id"));
+        restaurant.setOpen_time(rs.getTime("open_time").toLocalTime());
+        restaurant.setClose_time(rs.getTime("close_time").toLocalTime());
+        restaurant.setCuisineType(rs.getString("cuisine_type"));
+        restaurant.setPhoneNumber(rs.getLong("phone_number"));
+        restaurant.setRatings(rs.getDouble("ratings"));
+        restaurant.set_pureveg(rs.getBoolean("is_pureveg")); 
+        restaurant.setPicture(rs.getString("picture"));
+
+        return restaurant;
+    });
+}
+
 
     @Override
     public void addRestaurant(Restaurant restaurant) {

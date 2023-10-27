@@ -66,8 +66,8 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
        
         })
         .when('/myorders', {
-                templateUrl: 'myorders.html', 
-                controller: 'OrderController' 
+                templateUrl: 'views/myorders.html', 
+                controller: 'HeaderController' 
               })
         .otherwise({ redirectTo: '/login' });
     

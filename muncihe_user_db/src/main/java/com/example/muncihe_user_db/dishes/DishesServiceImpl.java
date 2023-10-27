@@ -34,7 +34,7 @@ public class DishesServiceImpl implements DishesService {
     @Override
     public void addDish(Dishes dish) {
         if (dish.getDescrip() == null || dish.getDescrip().isEmpty()
-                || dish.getIsVeg() == null
+                || dish.getIs_veg() == null
                 || dish.getName() == null || dish.getName().isEmpty()
                 || dish.getPrice() == null
                 || dish.getRestaurantId() <= 0

@@ -8,5 +8,5 @@ public interface OrderRepository {
      void save(Orders order);
 
 
-    
+     List<Orders> getOrdersByUserId(int userId);
 }

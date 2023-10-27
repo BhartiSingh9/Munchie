@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
+
 
 @Repository
 public class DishesRepositoryImpl implements DishesRepository {
@@ -28,7 +28,7 @@ public List<Dishes> getAllDishes() {
             Dishes dishes = new Dishes();
             dishes.setId(rs.getInt("id"));
             dishes.setDescrip(rs.getString("descrip"));
-            dishes.setIsVeg(rs.getBoolean("is_veg"));
+            dishes.setIs_veg(rs.getBoolean("is_veg"));
             dishes.setPicture(rs.getString("picture"));
             dishes.setName(rs.getString("name"));
             dishes.setPrice(rs.getDouble("price"));
@@ -39,12 +39,27 @@ public List<Dishes> getAllDishes() {
     });
 }
 
-    @Override
-    public List<Dishes> getDishesByRestaurantId(int restaurantId) {
-        String sql = "SELECT * from dishes WHERE restaurant_fk = ?";
+@Override
+public List<Dishes> getDishesByRestaurantId(int restaurantId) {
+    String sql = "SELECT * from dishes WHERE restaurant_fk = ?";
 
-        return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Dishes.class), restaurantId);
-    }
+    return jdbcTemplate.query(sql, new RowMapper<Dishes>() {
+        @Override
+        public Dishes mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Dishes dishes = new Dishes();
+            dishes.setId(rs.getInt("id"));
+            dishes.setDescrip(rs.getString("descrip"));
+            dishes.setIs_veg(rs.getBoolean("is_veg"));
+            dishes.setPicture(rs.getString("picture"));
+            dishes.setName(rs.getString("name"));
+            dishes.setPrice(rs.getDouble("price"));
+            dishes.setRestaurantId(rs.getInt("restaurant_fk"));
+
+            return dishes;
+        }
+    }, restaurantId);
+}
+
 
     @Override
     public void addDish(Dishes dish) {
@@ -52,7 +67,7 @@ public List<Dishes> getAllDishes() {
         if (dish.getDescrip() == null || dish.getDescrip().isEmpty()) {
             throw new IllegalArgumentException("Description is required.");
         }
-        if (dish.getIsVeg() == null) {
+        if (dish.getIs_veg() == null) {
             throw new IllegalArgumentException("isVeg is required.");
         }
         if (dish.getName() == null || dish.getName().isEmpty()) {
@@ -73,7 +88,7 @@ public List<Dishes> getAllDishes() {
             jdbcTemplate.update(
                 sql,
                 dish.getDescrip(),
-                dish.getIsVeg(),
+                dish.getIs_veg(),
                 dish.getName(),
                 dish.getPrice(),
                 dish.getRestaurantId(),

@@ -6,8 +6,9 @@ import org.springframework.data.relational.core.mapping.Table;
 import lombok.Data;
 import java.time.LocalTime;
 
-@Data
+
 @Table(name = "restaurant")
+@Data
 public class Restaurant {
     @Id
     private int id;
@@ -47,4 +48,5 @@ public class Restaurant {
 
     @Column("picture")
     private String picture;
+
 }

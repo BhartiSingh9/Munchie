@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
 
@@ -20,7 +19,7 @@ public class OrderServiceImpl implements OrderService {
 
     public OrderServiceImpl(OrderRepository orderRepository, OrderDetailsRepository orderDetailsRepository) {
         this.orderRepository = orderRepository;
-        this.orderDetailsRepository= orderDetailsRepository;
+        this.orderDetailsRepository = orderDetailsRepository;
     }
 
     @Override
@@ -37,13 +36,14 @@ public class OrderServiceImpl implements OrderService {
 
         return orders;
     }
+
     @Override
     public void placeOrder(OrderDto orderDto) {
 
         Orders order = new Orders();
         order.setUserId(orderDto.getUserId());
         order.setRestaurantId(orderDto.getRestaurantId());
-        order.setOrder_date_time(LocalDateTime.now()); 
+        order.setOrder_date_time(LocalDateTime.now());
         order.setPayment_method(orderDto.getPaymentMethod());
         order.setTotal_cost(orderDto.getTotalCost());
 
@@ -51,11 +51,16 @@ public class OrderServiceImpl implements OrderService {
 
         for (OrderDetailsDto orderDetailsDTO : orderDto.getOrderDetails()) {
             OrderDetails orderDetails = new OrderDetails();
-            orderDetails.setOrderId(order.getId()); 
+            orderDetails.setOrderId(order.getId());
             orderDetails.setDishId(orderDetailsDTO.getDishId());
             orderDetails.setQuantity(orderDetailsDTO.getQuantity());
 
             orderDetailsRepository.save(orderDetails);
         }
+    }
+
+    @Override
+    public List<Orders> getOrdersByUserId(int userId) {
+        return orderRepository.getOrdersByUserId(userId);
     }
 }

@@ -18,6 +18,7 @@ angular.module("myApp").controller('AdminController', ['$scope', 'AdminService',
         open_time: 0,
         phone_number: 0,
         ratings: 0.0,
+        picture:"",
     };
 
     $scope.addDish = {
@@ -116,6 +117,7 @@ angular.module("myApp").controller('AdminController', ['$scope', 'AdminService',
                 open_time: 0,
                 phone_number: 0,
                 ratings: 0.0,
+                picture:"",
             };
         }
         }, function(error) {

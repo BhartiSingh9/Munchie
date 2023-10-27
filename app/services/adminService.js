@@ -96,16 +96,16 @@ angular.module("myApp").service('AdminService', ['$http', function ($http) {
     };
 
 
-    this.getOrderDetails = function (orderId) {
-        return $http({
-            url: baseUrl + '/order-details/by-order-id/' + orderId, 
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-        });
-    };
+    // this.getOrderDetails = function (orderId) {
+    //     return $http({
+    //         url: baseUrl + '/order-details/by-order-id/' + orderId, 
+    //         method: 'GET',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'Accept': 'application/json'
+    //         }
+    //     });
+    // };
     
     
   }]);

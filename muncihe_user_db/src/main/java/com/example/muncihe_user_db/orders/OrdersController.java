@@ -50,4 +50,19 @@ public class OrdersController {
             return new ResponseEntity<>("Failed to place the order", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+     @CrossOrigin(origins = "http://127.0.0.1:5500")
+    @GetMapping("/user/{userId}")
+public ResponseEntity<List<Orders>> getOrdersByUserId(@PathVariable int userId) {
+    try {
+        List<Orders> orders = orderService.getOrdersByUserId(userId);
+        if (orders.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(orders, HttpStatus.OK);
+    } catch (Exception e) {
+        logger.error("Failed to fetch orders for user ID " + userId + ": " + e.getMessage(), e);
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
+
 }

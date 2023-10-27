@@ -1,36 +1,41 @@
-angular.module('myApp').controller('HeaderController', function ($scope) {
-    $scope.headerItems = [
-        {
-            link: '/my-orders', 
-            text: 'My Orders'
-        },
-        {
-            link: '/cart', 
-            text: 'Cart'
-        }
-    ];
-});
+angular.module('myApp').controller('HeaderController', ['$scope', '$http', '$location', 'restaurantService', function ($scope, $http, $location, restaurantService) {
+    $scope.headerItems = [];
+    $scope.userOrders = [];
 
+    // Function to fetch restaurant name by ID
+    function fetchRestaurantName(restaurantId) {
+        return restaurantService.getRestaurantById(restaurantId)
+            .then(function (response) {
+                return response.data.name;
+            })
+            .catch(function (error) {
+                console.error('Failed to fetch restaurant name: ' + error);
+                return "Restaurant Name Not Found";
+            });
+    }
 
-// angular.module('myApp').controller('HeaderController', function ($scope, $location) {
-//     var currentRoute = $location.path();
-//     console.log(currentRoute);
+    $scope.fetchOrdersForUser = function () {
+        console.log("fetchOrdersForUser function called");
+        $http.get('http://localhost:8080/orders/user/1')
+            .then(function (response) {
+                console.log("My Orders link clicked");
+                $scope.userOrders = response.data;
 
-//     $scope.showMyOrders = true; // Show by default
-//     $scope.showCart = true; // Show by default
+                // Fetch restaurant name for each order
+                $scope.userOrders.forEach(function (order) {
+                    fetchRestaurantName(order.restaurantId).then(function (restaurantName) {
+                        order.restaurantName = restaurantName;
+                    });
+                });
+            })
+            .catch(function (error) {
+                console.error('Failed to fetch user orders: ' + error);
+            });
+    };
 
-//     if (currentRoute === '/login') {
-//         $scope.showMyOrders = false; // Hide on the login page
-//         $scope.showCart = false; // Hide on the login page
-//     }
+    $scope.goToMyOrders = function () {
+        $location.path('/myorders');
+        $scope.fetchOrdersForUser();
+    };
 
-//     $scope.goToMyOrders = function () {
-//         // Define the logic to navigate to the "My Orders" page
-//         $location.path('/my-orders'); // Update with your actual route
-//     };
-
-//     $scope.goToCart = function () {
-//         // Define the logic to navigate to the "Cart" page
-//         $location.path('/cart'); // Update with your actual route
-//     };
-// });
+}]);

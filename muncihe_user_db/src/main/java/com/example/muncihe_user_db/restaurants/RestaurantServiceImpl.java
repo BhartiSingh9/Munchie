@@ -22,7 +22,10 @@ public class RestaurantServiceImpl implements RestaurantService {
         }
         return restaurants;
     }
-
+    @Override
+    public Restaurant getRestaurantDetailsById(int restaurantId) {
+        return restaurantRepository.findRestaurantById(restaurantId);
+    }
     @Override
     public void addRestaurant(Restaurant restaurant) {
         if (restaurant == null) {

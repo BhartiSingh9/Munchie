@@ -48,7 +48,20 @@ public class RestaurantController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    @GetMapping("/{restaurantId}")
+    public ResponseEntity<Restaurant> getRestaurantDetails(@PathVariable int restaurantId) {
+        try {
+            Restaurant restaurant = restaurantService.getRestaurantDetailsById(restaurantId);
+            if (restaurant == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(restaurant, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     @DeleteMapping("/{restaurantId}")
     public ResponseEntity<Void> removeRestaurant(@PathVariable int restaurantId) {
         try {
