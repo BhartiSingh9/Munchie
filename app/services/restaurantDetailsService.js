@@ -1,18 +1,20 @@
-angular.module("myApp").service('restaurantDetailsService', ['$http', function($http) {
+angular.module("myApp").service('restaurantDetailsService', ['$http', function ($http) {
     return {
-        getAllDishes: function() {
-           
+        getAllDishes: function () {
+
             return $http({
                 url: 'http://localhost:8080/dishes',
                 method: "GET",
-                header:{'Content-Type': 'application/json', // Set the appropriate content type
-                'Accept': 'application/json', },
-                params: { }, 
+                header: {
+                    'Content-Type': 'application/json', 
+                    'Accept': 'application/json',
+                },
+                params: {},
             });
         },
-        getDishesForRestaurant: function(restaurantId) {
+        getRestaurantDetails: function (restaurantId) {
             return $http({
-                url: 'http://localhost:8080/dishes/restaurants/' + restaurantId , // Adjust the URL to match your backend API
+                url: 'http://localhost:8080/restaurants/' + restaurantId, 
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -20,6 +22,34 @@ angular.module("myApp").service('restaurantDetailsService', ['$http', function($
                 },
                 params: {},
             });
+        },
+        getDishesForRestaurant: function (restaurantId) {
+            return $http({
+                url: 'http://localhost:8080/dishes/restaurants/' + restaurantId, 
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                params: {},
+            });
+        },
+        placeorder: function (orderData) {
+            return $http({
+                url: 'http://localhost:8080/orders/place-order',
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': '*/*'
+                },
+                data: orderData,
+
+            }).then(function (response) {
+                return response;
+            }, function (response) {
+                return response;
+            });
         }
+
     };
 }]);

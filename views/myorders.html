@@ -1,0 +1,22 @@
+<my-header></my-header>
+
+<div ng-controller="HeaderController">
+  
+  <div class="order-list">
+      <div class="my-orders-link" ng-click="goToMyOrders()">
+          <span>My Orders</span>
+      </div>
+      <div class="order" ng-repeat="order in userOrders">
+          <div class="order-header">
+              
+              <span class="order-date">Order Date: {{ formatDate(order.order_date_time) }}</span>
+          </div>
+          <div class="order-details">
+              <span class="payment-method">Payment Method: {{ order.payment_method }}</span>
+              <span class="total-cost">Total Cost: {{ order.total_cost | currency }}</span>
+              <span class="restaurant-name">Restaurant: {{ order.restaurantName}}</span>
+
+          </div>
+      </div>
+  </div>
+</div>

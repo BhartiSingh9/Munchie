@@ -3,7 +3,8 @@ package com.example.muncihe_user_db.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.muncihe_user_db.model.User;
 import com.example.muncihe_user_db.service.UserService;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -23,15 +25,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    // @GetMapping("/{email}")
-    // public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
-    //     Optional<User> user = userService.getUserByEmail(email);
-    //     if (user.isPresent()) {
-    //         return new ResponseEntity<>(user.get(), HttpStatus.OK);
-    //     } else {
-    //         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    //     }
-    // }
+   
     @PostMapping("/getbyemail")
     public ResponseEntity<String> loginUser(@RequestBody User user) {
         // Retrieve user data by email using the UserService
@@ -46,6 +40,24 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
         }
     }
+@GetMapping
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = userService.getAllUsers();
+        if (users.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(users);
+        }
+        return ResponseEntity.ok(users);
+    }
+    @GetMapping("/{id}")
+public ResponseEntity<User> getUserById(@PathVariable int id) {
+    Optional<User> user = userService.getUserById(id);
+
+    if (user.isPresent()) {
+        return ResponseEntity.ok(user.get());
+    } else {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
+}
 
      private String generateToken() {
         // Implement token generation logic (e.g., using JWT)

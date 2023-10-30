@@ -65,6 +65,10 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
             controller: 'AdminController',
        
         })
+        .when('/myorders', {
+                templateUrl: 'views/myorders.html', 
+                controller: 'HeaderController' 
+              })
         .otherwise({ redirectTo: '/login' });
     
     $locationProvider.html5Mode({

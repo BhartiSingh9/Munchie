@@ -1,6 +1,5 @@
-package com.example.muncihe_user_db.model;
 
-
+package com.example.muncihe_user_db.dishes;
 
 
 import org.springframework.data.annotation.Id;
@@ -18,7 +17,7 @@ public class Dishes {
     private String descrip;
 
     @Column("is_veg")
-    private Boolean isVeg;
+    private Boolean is_veg;
     @Column("picture")
     private String picture;
     @Column("name")

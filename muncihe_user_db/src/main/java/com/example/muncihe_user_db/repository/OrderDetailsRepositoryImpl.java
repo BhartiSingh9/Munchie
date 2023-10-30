@@ -24,4 +24,19 @@ public class OrderDetailsRepositoryImpl implements OrderDetailsRepository {
         String sql = "SELECT * FROM orderdetails WHERE orderId = ?";
         return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(OrderDetails.class), orderId);
     }
+    @Override
+public void save(OrderDetails orderDetails) {
+    String sql = """
+                 INSERT INTO orderdetails (orderId, dishId, quantity) \
+                 VALUES (?, ?, ?)\
+                 """;
+
+    jdbcTemplate.update(sql, 
+        orderDetails.getOrderId(),
+        orderDetails.getDishId(),
+        orderDetails.getQuantity()
+    );
+
+}
+
 }

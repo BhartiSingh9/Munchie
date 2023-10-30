@@ -1,4 +1,4 @@
-<!-- login.html -->
+
 <!DOCTYPE html>
 <html lang="en" ng-app="myApp">
 <head>
@@ -8,11 +8,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
 
     <script src="app.js"></script>
-<!-- <script src="routeConfig.js"></script> -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-    <!-- Include CSS and JavaScript dependencies as needed -->
+  
     <link rel="stylesheet" type="text/css" href="./assests/styles/styles.css">
     <script src="./app/footer-part/footerController.js"></script>
     <script src="./app/footer-part/footerDirective.js"></script>
@@ -27,12 +26,18 @@
     <script src="./app/services/cartService.js"></script>
     <script src="./app/controllers/adminController.js"></script>
     <script src="./app/services/adminService.js"></script> 
+    <script src="./app/controllers/orderController.js"></script>
+    <script src="./app/services/orderService.js"></script>
+    <script src="./app/sidebar-part/sidebarController.js"></script>
+    <script src="./app/sidebar-part/sidebarDirective.js"></script>
+    <script src="./app/controllers/userController.js"></script>
+    <script src="./app/services/userService.js"></script>
     <script src="index.js"></script>
 </head>
 <body>
     <base href="/">
    
-    <my-header></my-header>
+    
 <div id="main" ng-view></div>
 
 
